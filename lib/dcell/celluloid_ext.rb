@@ -66,4 +66,15 @@ module Celluloid
       DCell::RPC._load(string)
     end
   end
+
+  class Future
+    def _dump(level)
+      address = DCell::Router.register self
+      DCell::Future.new(address,DCell.id,DCell.addr)._dump(level)
+    end
+
+    def self._load(string)
+      DCell::Future._load(string)
+    end
+  end
 end

@@ -44,24 +44,28 @@ module DCell
       end
 
       # Route a message to a given mailbox ID
-      def route(mailbox_address, message)
-        recipient = find mailbox_address
+      def route(recipient, message)
+        unless recipient.respond_to?(:signal)
+          recipient = find recipient
+        end
 
         if recipient
-          recipient << message
+          recipient.signal message
         else
-          Celluloid::Logger.debug("received message for invalid actor: #{mailbox_address.inspect}")
+          Celluloid::Logger.debug("received message for invalid actor: #{recipient.inspect}")
         end
       end
 
       # Route a system event to a given mailbox ID
-      def route_system_event(mailbox_address, event)
-        recipient = find mailbox_address
+      def route_system_event(recipient, event)
+        unless recipient.respond_to?(:system_event)
+          recipient = find recipient
+        end
 
         if recipient
           recipient.system_event event
         else
-          Celluloid::Logger.debug("received message for invalid actor: #{mailbox_address.inspect}")
+          Celluloid::Logger.debug("received message for invalid actor: #{recipient.inspect}")
         end
       end
 

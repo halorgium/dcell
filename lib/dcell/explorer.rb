@@ -7,10 +7,12 @@ module DCell
   # Web UI for DCell
   # TODO: rewrite this entire thing with less hax
   class Explorer
+    include Celluloid
+
     ASSET_ROOT = Pathname.new File.expand_path("../../../explorer", __FILE__)
 
     def initialize(host = "127.0.0.1", port = 7778)
-      @server = Reel::Server.new(host, port, &method(:handle_connection))
+      Reel::Server.new_link(host, port, &method(:handle_connection))
     end
 
     def handle_connection(connection)

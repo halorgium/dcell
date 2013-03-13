@@ -1,12 +1,16 @@
 module DCell
   class RPC < Celluloid::SyncCall
-    def initialize(id, caller, method, arguments, block)
-      @id, @caller, @method, @arguments, @block = id, caller, method, arguments, block
+    def initialize(id, data)
+      @id = id
+      @data = data
+      [:@caller, :@method, :@arguments, :@block].each.with_index do |ivar,index|
+        instance_variable_set(ivar, data.fetch(index))
+      end
     end
 
     # Custom marshaller for compatibility with Celluloid::Mailbox marshalling
     def _dump(level)
-      payload = Marshal.dump [@caller, @method, @arguments, @block]
+      payload = Marshal.dump @data
       "#{@id}:#{payload}"
     end
 

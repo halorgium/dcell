@@ -17,7 +17,7 @@ module DCell
       if DCell.id == node_id
         claim uuid
       else
-        klass.new("#{uuid}@#{node_id}", *Marshal.load(string))
+        klass.new("#{uuid}@#{node_id}", Marshal.load(string))
       end
     end
 

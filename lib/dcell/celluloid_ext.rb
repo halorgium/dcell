@@ -76,7 +76,7 @@ module Celluloid
     end
 
     def self._load(string)
-      DCell::Manager.load(string)
+      DCell::RPC._load(string)
     end
   end
 

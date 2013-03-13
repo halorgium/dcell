@@ -12,7 +12,7 @@ module DCell
 
     # Loader for custom marshal format
     def self._load(string)
-      Manager.load(string)
+      Manager.load(self, string)
     end
   end
 end

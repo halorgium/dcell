@@ -72,7 +72,7 @@ module Celluloid
 
   class SyncCall
     def _dump(level)
-      DCell::Manager.store(self, @caller, @method, @arguments, @block)
+      DCell::RPC.store(self)
     end
 
     def self._load(string)

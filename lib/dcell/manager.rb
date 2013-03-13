@@ -21,7 +21,7 @@ module DCell
       end
     end
 
-    def self.store(object, *data)
+    def self.store(object, data)
       uuid = register(object)
       payload = Marshal.dump(data)
       "#{uuid}@#{DCell.id}:#{payload}"
